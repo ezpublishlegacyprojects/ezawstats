@@ -173,6 +173,31 @@ class eZAWStats
         $this->Data['total'] = $total;
     }
 
+    private function parseSectionDay( $section, $xpath )
+    {
+        $this->Data['day'] = array();
+        $data =& $this->Data['day'];
+        $template = array( 'Date' => 0, 'Pages' => 0, 'Hits' => 0,
+                           'Bandwidth' => 0, 'Visits' => 0 );
+        $ts = mktime( 1, 0, 0, $this->Month, 1, $this->Year );
+        $dayNumbers = date( 't', $ts );
+        for( $i = 1; $i!= $dayNumbers + 1 ; $i++ )
+        {
+            $data[$i] = $template;
+            $data[$i]['Date'] = eZDate::create( $this->Month, $i, $this->Year );
+        }
+        $valueNodes = $xpath->query( 'table/tr', $section );
+        foreach( $valueNodes as $node )
+        {
+            $awstatsDate = trim( $node->childNodes->item( 0 )->nodeValue );
+            $day = (int) substr( $awstatsDate, 6, 2 );
+            $data[$day]['Pages'] = trim( $node->childNodes->item( 1 )->nodeValue );
+            $data[$day]['Hits'] = trim( $node->childNodes->item( 2 )->nodeValue );
+            $data[$day]['Bandwidth'] = trim( $node->childNodes->item( 3 )->nodeValue );
+            $data[$day]['Visits'] = trim( $node->childNodes->item( 4 )->nodeValue );
+        }
+    }
+
     static function createDateTime( $awstatsDateTime )
     {
         $year = substr( $awstatsDateTime, 0, 4 );

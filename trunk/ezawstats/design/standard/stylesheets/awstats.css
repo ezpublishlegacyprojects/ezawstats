@@ -1,4 +1,4 @@
-table.list td.cdata
+table.list td.cdata, table.list tr.cdata th
 {
 text-align:center;
 }
