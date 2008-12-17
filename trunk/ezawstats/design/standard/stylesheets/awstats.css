@@ -2,3 +2,50 @@ table.list td.cdata, table.list tr.cdata th
 {
 text-align:center;
 }
+table.list td.hour
+{
+background:#f0f0f0;
+font-weight:bold;
+}
+table.list td.selected
+{
+font-weight:bold;
+}
+table.list .week-end
+{
+background:#f0f0f0;
+}
+div.context-block table.simple
+{
+width:500px;
+margin:0 auto;
+}
+div.context-block table.chart
+{
+width:auto;
+margin:10px auto 20px auto;
+}
+table.chart td.cdata
+{
+width:24px;
+}
+table.chart td.cdata img
+{
+vertical-align:bottom;
+}
+table.chart td.images
+{
+vertical-align:bottom;
+}
+table.chart tr.day_line td
+{
+font-size:0.9em;
+text-align:center;
+padding-left:0;
+padding-right:0;
+}
+div.context-block table.double
+{
+margin:0 auto;
+width:700px;
+}

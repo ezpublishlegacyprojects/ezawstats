@@ -14,7 +14,7 @@ $siteList = $statsINI->variable( 'AWStatsSettings', 'SiteList' );
 $Site = $statsINI->variable( 'AWStatsSettings', 'DefaultSite' );
 if ( isset( $Params['Site'] ) )
 {
-    if ( !in_array( $Params['Site'], $siteList ) )
+    if ( $Params['Site'] != $Site || !in_array( $Params['Site'], $siteList ) )
     {
         eZDebug::writeWarning( 'Site in parameters is not in available site list', 'ezawstats' );
     }
@@ -45,7 +45,7 @@ if ( $result === false )
     eZDebug::writeError( 'Error when parsing ' . $awstats->attribute( 'data_file' ), 'awstats' );
     eZExecution::cleanExit();
 }
-eZDebug::writeDebug( $awstats );
+//eZDebug::writeDebug( $awstats );
 eZDebug::accumulatorStart( 'datelist', 'AWStats', 'Date list' );
 $dateList = $awstats->dateList();
 eZDebug::accumulatorStop( 'datelist' );
@@ -55,6 +55,7 @@ $tpl = templateInit();
 $tpl->setVariable( 'awstats_sites', $siteList );
 $tpl->setVariable( 'awstats_dates', $dateList );
 $tpl->setVariable( 'awstats', $awstats );
+$tpl->setVariable( 'date', new eZDate() );
 
 $Result['content'] = $tpl->fetch( 'design:awstats/stats.tpl' );
 $Result['left_menu']  = 'design:parts/awstats/menu.tpl';

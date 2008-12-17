@@ -72,7 +72,7 @@ class eZAWStats
     {
         $dom = new DomDocument();
         $file = $this->dataFilePath();
-        $result = $dom->load( $file );
+        $result = @$dom->load( $file );
         if ( $result === false )
         {
             eZDebug::writeError( $file . ' seems to not be a valid XML file', __CLASS__ );
@@ -183,18 +183,50 @@ class eZAWStats
         $dayNumbers = date( 't', $ts );
         for( $i = 1; $i!= $dayNumbers + 1 ; $i++ )
         {
-            $data[$i] = $template;
-            $data[$i]['Date'] = eZDate::create( $this->Month, $i, $this->Year );
+            $data["$i"] = $template;
+            $data["$i"]['Date'] = eZDate::create( $this->Month, $i, $this->Year );
         }
         $valueNodes = $xpath->query( 'table/tr', $section );
         foreach( $valueNodes as $node )
         {
             $awstatsDate = trim( $node->childNodes->item( 0 )->nodeValue );
             $day = (int) substr( $awstatsDate, 6, 2 );
-            $data[$day]['Pages'] = trim( $node->childNodes->item( 1 )->nodeValue );
-            $data[$day]['Hits'] = trim( $node->childNodes->item( 2 )->nodeValue );
-            $data[$day]['Bandwidth'] = trim( $node->childNodes->item( 3 )->nodeValue );
-            $data[$day]['Visits'] = trim( $node->childNodes->item( 4 )->nodeValue );
+            $data["$day"]['Pages'] = trim( $node->childNodes->item( 1 )->nodeValue );
+            $data["$day"]['Hits'] = trim( $node->childNodes->item( 2 )->nodeValue );
+            $data["$day"]['Bandwidth'] = trim( $node->childNodes->item( 3 )->nodeValue );
+            $data["$day"]['Visits'] = trim( $node->childNodes->item( 4 )->nodeValue );
+        }
+    }
+
+    private function parseSectionRobot( $section, $xpath, $number = false )
+    {
+        if ( !is_integer( $number ) )
+        {
+            $number = 10;
+            $nodeList = $xpath->evaluate( 'sortfor', $section );
+            if ( $nodeList->length == 1 )
+            {
+                $number = trim( $nodeList->item( 0 )->nodeValue );
+            }
+        }
+        $this->Data['robot'] = array();
+        $data =& $this->Data['robot'];
+        // TODO limit using XPath expression
+        $nodeList = $xpath->query( 'table/tr', $section );
+        $count = 0;
+        foreach( $nodeList as $node )
+        {
+            $data[$count]['RobotID'] = trim( $node->childNodes->item( 0 )->nodeValue );
+            $data[$count]['Name'] = trim( $node->childNodes->item( 0 )->nodeValue ); // TODO retrieve real name
+            $data[$count]['Hits'] = trim( $node->childNodes->item( 1 )->nodeValue );
+            $data[$count]['Bandwidth'] = trim( $node->childNodes->item( 2 )->nodeValue );
+            $data[$count]['LastVisitDate'] = self::createDateTime( trim( $node->childNodes->item( 3 )->nodeValue ) );
+            $data[$count]['RobotsTxtHits'] = trim( $node->childNodes->item( 4 )->nodeValue );
+            $count++;
+            if ( $count == $number )
+            {
+                break;
+            }
         }
     }
 
