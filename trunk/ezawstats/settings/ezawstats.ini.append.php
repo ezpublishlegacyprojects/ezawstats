@@ -2,8 +2,7 @@
 
 [AWStatsSettings]
 DataDir=var/awstats
-DefaultSite=pwet.fr
+DefaultSite=
 SiteList[]
-SiteList[]=pwet.fr
 
 */?>

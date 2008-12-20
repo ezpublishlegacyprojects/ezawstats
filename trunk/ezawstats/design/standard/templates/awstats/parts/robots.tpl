@@ -11,13 +11,13 @@
 <tbody>
 <tr class="cdata">
     <th>{'Name'|i18n( 'awstats/stats' )} (<a href={concat( 'awtstats/robots/', $awstats.year, '/', $awstats.month, '/', $awstats.site )|ezurl()}>{'Full list'|i18n( 'awtstats/stats' )}</a>)</th>
-    <th>{'Hits'|i18n( 'awstats/stats' )}</th>
+    <th>{'Hits + robots.txt hits'|i18n( 'awstats/stats' )}</th>
     <th>{'Bandwidth'|i18n( 'awstats/stats' )}</th>
     <th>{'Last visit'|i18n( 'awstats/stats' )}</th>
 </tr>
-{foreach $awstats.data.robot as $robot}
-<tr>
-    <td>{$robot.Name|wash()}</td>
+{foreach $awstats.data.robot as $robot sequence array( 'bglight', 'bgdark' ) as $css}
+<tr class="{$css}">
+    <td>{$robot.Name}</td>
     <td class="cdata">{$robot.Hits}+{$robot.RobotsTxtHits}</td>
     <td class="cdata">{$robot.Bandwidth|si( 'byte' )}</td>
     <td class="cdata">{$robot.LastVisitDate.timestamp|l10n( 'shortdatetime' )}</td>

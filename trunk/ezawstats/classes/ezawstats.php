@@ -198,35 +198,33 @@ class eZAWStats
         }
     }
 
-    private function parseSectionRobot( $section, $xpath, $number = false )
+    private function parseSectionRobot( $section, $xpath, $number = 10 )
     {
-        if ( !is_integer( $number ) )
-        {
-            $number = 10;
-            $nodeList = $xpath->evaluate( 'sortfor', $section );
-            if ( $nodeList->length == 1 )
-            {
-                $number = trim( $nodeList->item( 0 )->nodeValue );
-            }
-        }
+        $ini = eZINI::instance( 'browser.ini' );
+        $robotList = $ini->variable( 'RobotSettings', 'RobotList' );
         $this->Data['robot'] = array();
         $data =& $this->Data['robot'];
-        // TODO limit using XPath expression
-        $nodeList = $xpath->query( 'table/tr', $section );
+        $xpathExpr = 'table/tr';
+        if ( is_integer( $number ) )
+        {
+            $xpathExpr .= '[position() < ' . $number . ']';
+        }
+        $nodeList = $xpath->query( $xpathExpr, $section );
         $count = 0;
         foreach( $nodeList as $node )
         {
             $data[$count]['RobotID'] = trim( $node->childNodes->item( 0 )->nodeValue );
-            $data[$count]['Name'] = trim( $node->childNodes->item( 0 )->nodeValue ); // TODO retrieve real name
+            $robotName = trim( $node->childNodes->item( 0 )->nodeValue );
+            if ( isset( $robotList[$robotName] ) )
+            {
+                $robotName = $robotList[$robotName];
+            }
+            $data[$count]['Name'] = $robotName;
             $data[$count]['Hits'] = trim( $node->childNodes->item( 1 )->nodeValue );
             $data[$count]['Bandwidth'] = trim( $node->childNodes->item( 2 )->nodeValue );
             $data[$count]['LastVisitDate'] = self::createDateTime( trim( $node->childNodes->item( 3 )->nodeValue ) );
             $data[$count]['RobotsTxtHits'] = trim( $node->childNodes->item( 4 )->nodeValue );
             $count++;
-            if ( $count == $number )
-            {
-                break;
-            }
         }
     }
 

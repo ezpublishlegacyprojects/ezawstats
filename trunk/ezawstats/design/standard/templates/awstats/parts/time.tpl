@@ -12,7 +12,7 @@
 <tr>
 {def $total = $awstats.data.total}
 {foreach $awstats.data.time as $hour => $time_info}
-    <td class="cdata images"><img src={'vp.png'|ezimage} alt="{$time_info.Pages} {'pages'|i18n( 'awstats/stats' )}" height="{$time_info.Pages|mul( 400 )|div( $total.Hits )|floor}" width="6" /><img src={'vh.png'|ezimage} alt="{$time_info.Hits} {'hits'|i18n( 'awstats/stats' )}" height="{$time_info.Hits|mul( 400 )|div( $total.Hits )|floor}" width="6" /><img src={'vk.png'|ezimage} alt="{$time_info.Bandwidth|si( 'byte' )}" height="{$time_info.Bandwidth|mul( 400 )|div( $total.Bandwidth )|floor}" width="6" /></td>
+    <td class="cdata images"><img src={'vp.png'|ezimage} alt="{$time_info.Pages} {'pages'|i18n( 'awstats/stats' )}" height="{$time_info.Pages|mul( 500 )|div( $total.Hits )|floor}" width="6" /><img src={'vh.png'|ezimage} alt="{$time_info.Hits} {'hits'|i18n( 'awstats/stats' )}" height="{$time_info.Hits|mul( 500 )|div( $total.Hits )|floor}" width="6" /><img src={'vk.png'|ezimage} alt="{$time_info.Bandwidth|si( 'byte' )}" height="{$time_info.Bandwidth|mul( 500 )|div( $total.Bandwidth )|floor}" width="6" /></td>
 {/foreach}
 </tr>
 <tr>
