@@ -20,7 +20,11 @@
     <td>{$robot.Name}</td>
     <td class="cdata">{$robot.Hits}+{$robot.RobotsTxtHits}</td>
     <td class="cdata">{$robot.Bandwidth|si( 'byte' )}</td>
+    {if $robot.LastVisitDate|not()}
+    <td class="cdata"></td>
+    {else}
     <td class="cdata">{$robot.LastVisitDate.timestamp|l10n( 'shortdatetime' )}</td>
+    {/if}
 </tr>
 {/foreach}
 </tbody>

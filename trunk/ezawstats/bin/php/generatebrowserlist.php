@@ -61,7 +61,7 @@ function parsePerlHash( $lineArray, $hashName )
             continue;
         }
         list( $key, $value ) = explode( ',', $line );
-        $key = trim( $key, "'" );
+        $key = trim( str_replace( array( '[', ']' ), array( '<<', '>>' ), $key ), "'" );
         $resultList[$key] = str_replace( "\\", "", trim( $value, " \t\n\r\0\x0b'" ) );
     }
     return $resultList;

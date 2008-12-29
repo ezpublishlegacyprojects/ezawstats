@@ -213,7 +213,7 @@ RobotList[zyborg]=<a href="http://www.WISEnutbot.com/" title="wn-14.zyborg@looks
 RobotList[wisenutbot]=<a href="http://www.WISEnutbot.com/" title="Bot home page [new window]" target="_blank">WISENutbot</a>
 RobotList[webcollage]=<a href="http://www.jwz.org/webcollage/" title="WebCollage home page [new window]" target="_blank">WebCollage</a>
 RobotList[cfetch]=<a href="http://www.kosmix.com/crawler.html" title="kosmix home page [new window]" target="_blank">Cfetch</a>
-RobotList[[^a]fish]=Fish search
+RobotList[<<^a>>fish]=Fish search
 RobotList[abcdatos]=ABCdatos BotLink
 RobotList[acme\.spider]=Acme.Spider
 RobotList[ahoythehomepagefinder]=Ahoy! The Homepage Finder
@@ -240,7 +240,7 @@ RobotList[borg\-bot]=Borg-Bot
 RobotList[brightnet]=bright.net caching robot
 RobotList[bspider]=BSpider
 RobotList[cactvschemistryspider]=CACTVS Chemistry Spider
-RobotList[calif[^r]]=Calif
+RobotList[calif<<^r>>]=Calif
 RobotList[cassandra]=Cassandra
 RobotList[cgireader]=Digimarc Marcspider/CGI
 RobotList[checkbot]=Checkbot
@@ -785,6 +785,6 @@ RobotList[java]=<a href="http://www.projecthoneypot.org/harvester_useragents.php
 RobotList[robot]=Unknown robot (identified by 'robot')
 RobotList[crawl]=Unknown robot (identified by 'crawl')
 RobotList[spider]=Unknown robot (identified by 'spider')
-RobotList[\wbot[\/\-]]=Unknown robot (identified by 'bot/' or 'bot-')
+RobotList[\wbot<<\/\->>]=Unknown robot (identified by 'bot/' or 'bot-')
 RobotList[unknown]=Unknown robot (identified by hit on 'robots.txt')
 */ ?>

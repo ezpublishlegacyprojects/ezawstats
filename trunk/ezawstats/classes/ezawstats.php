@@ -71,6 +71,8 @@ class eZAWStats
     public function parse()
     {
         $dom = new DomDocument();
+        $dom->strictErrorChecking = false;
+        $dom->recover = true;
         $file = $this->dataFilePath();
         $result = @$dom->load( $file );
         if ( $result === false )
@@ -215,9 +217,11 @@ class eZAWStats
         {
             $data[$count]['RobotID'] = trim( $node->childNodes->item( 0 )->nodeValue );
             $robotName = trim( $node->childNodes->item( 0 )->nodeValue );
-            if ( isset( $robotList[$robotName] ) )
+            $robotID = str_replace( '[', '<<', $robotName );
+            $robotID = str_replace( ']', '>>', $robotID );
+            if ( isset( $robotList[$robotID] ) )
             {
-                $robotName = $robotList[$robotName];
+                $robotName = $robotList[$robotID];
             }
             $data[$count]['Name'] = $robotName;
             $data[$count]['Hits'] = trim( $node->childNodes->item( 1 )->nodeValue );
@@ -225,6 +229,15 @@ class eZAWStats
             $data[$count]['LastVisitDate'] = self::createDateTime( trim( $node->childNodes->item( 3 )->nodeValue ) );
             $data[$count]['RobotsTxtHits'] = trim( $node->childNodes->item( 4 )->nodeValue );
             $count++;
+        }
+        if ( $number === 10 )
+        {
+            $data[$count]['RobotID'] = 'other';
+            $data[$count]['Name'] = 'Others';
+            $data[$count]['Hits'] = $xpath->evaluate( 'sum( table/tr[position() > 10]/td[2]/text() )', $section );
+            $data[$count]['Bandwidth'] = $xpath->evaluate( 'sum( table/tr[position() > 10]/td[3]/text() )', $section );
+            $data[$count]['RobotsTxtHits'] = $xpath->evaluate( 'sum( table/tr[position() > 10]/td[5]/text() )', $section );
+            $data[$count]['LastVisitDate'] = false;
         }
     }
 

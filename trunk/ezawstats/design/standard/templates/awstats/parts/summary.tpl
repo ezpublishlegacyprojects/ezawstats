@@ -17,7 +17,7 @@
     <td><b>{'Last updated'|i18n( 'awstats/stats' )}</b></td>
     <td colspan="5">{$awstats.data.general.LastUpdate.LastUpdateDate.timestamp|l10n( 'shortdatetime' )}</td>
 </tr>
-<tr class="bglight">
+<tr class="bgdark">
     <td><b>{'First visit'|i18n( 'awstats/stats' )}</b></td>
     <td colspan="5">{$awstats.data.general.FirstTime.timestamp|l10n( 'shortdatetime' )}</td>
 </tr>
