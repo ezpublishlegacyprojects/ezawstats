@@ -1,4 +1,4 @@
-{def $multiplier = 400}
+{def $multiplier = data_multiplier( $awstats.data.day, 'Visits', $awstats.data.general.TotalVisits, 70 )}
 <div class="context-block">
 <div class="box-header"><div class="box-tc"><div class="box-ml"><div class="box-mr"><div class="box-tl"><div class="box-tr">
 <h1 class="context-title">{'Days of month'|i18n( 'awstats/stats' )}</h1>
@@ -13,7 +13,7 @@
 <tbody>
 <tr class="cdata day_line">
 {foreach $awstats.data.day as $day_info}
-    <td class="cdata images"><img src={'vv.png'|ezimage} alt="{'Numbers of visits:'|i18n( 'awstats/stats' )} {$day_info.Visits}" height="{$day_info.Visits|mul( $multiplier )|div( $awstats.data.general.TotalVisits )}" width="4" /><img src={'vp.png'|ezimage} alt="{'Pages:'|i18n( 'awstats/stats' )} {$day_info.Pages}" height="{$day_info.Pages|mul( $multiplier )|div( $awstats.data.total.Pages|sum( $awstats.data.total.NotViewedPages ) )}" width="4" /><img src={'vh.png'|ezimage} alt="{'Hits:'|i18n( 'awstats/stats' )} {$day_info.Hits}" height="{$day_info.Hits|mul( $multiplier )|div( $awstats.data.total.Hits|sum( $awstats.data.total.NotViewedHits ) )}" width="4" /><img src={'vk.png'|ezimage} alt="{'Bandwidth:'|i18n( 'awstats/stats' )} {$day_info.Bandwidth|si( 'byte' )}" height="{$day_info.Bandwidth|mul( $multiplier )|div( $awstats.data.total.Bandwidth|sum( $awstats.data.total.NotViewedBandwidth ) )}" width="4" /></td>
+    <td class="cdata images"><img src={'vv.png'|ezimage} alt="{'Numbers of visits:'|i18n( 'awstats/stats' )} {$day_info.Visits}" height="{$day_info.Visits|mul( $multiplier )|div( $awstats.data.general.TotalVisits )|floor}" width="4" /><img src={'vp.png'|ezimage} alt="{'Pages:'|i18n( 'awstats/stats' )} {$day_info.Pages}" height="{$day_info.Pages|mul( $multiplier )|div( $awstats.data.total.Pages|sum( $awstats.data.total.NotViewedPages ) )|floor}" width="4" /><img src={'vh.png'|ezimage} alt="{'Hits:'|i18n( 'awstats/stats' )} {$day_info.Hits}" height="{$day_info.Hits|mul( $multiplier )|div( $awstats.data.total.Hits|sum( $awstats.data.total.NotViewedHits ) )|floor}" width="4" /><img src={'vk.png'|ezimage} alt="{'Bandwidth:'|i18n( 'awstats/stats' )} {$day_info.Bandwidth|si( 'byte' )}" height="{$day_info.Bandwidth|mul( $multiplier )|div( $awstats.data.total.Bandwidth|sum( $awstats.data.total.NotViewedBandwidth ) )|floor}" width="4" /></td>
 {/foreach}
 </tr>
 <tr class="day_line">

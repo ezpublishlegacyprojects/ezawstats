@@ -25,7 +25,7 @@ if ( isset( $Params['Site'] ) )
 }
 
 $Year = (int) date( 'Y' );
-$Month = (int) date( 'm' );
+$Month = sprintf( '%02d', (int) date( 'm' ) );
 if ( isset( $Params['Year'] ) )
 {
     $Year = (int) $Params['Year'];
@@ -53,6 +53,7 @@ eZDebug::accumulatorStop( 'datelist' );
 require_once 'kernel/common/template.php';
 $tpl = templateInit();
 $tpl->setVariable( 'awstats_sites', $siteList );
+$tpl->setVariable( 'current_site', $Site );
 $tpl->setVariable( 'awstats_dates', $dateList );
 $tpl->setVariable( 'awstats', $awstats );
 $tpl->setVariable( 'date', new eZDate() );

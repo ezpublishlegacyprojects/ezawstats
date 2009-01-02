@@ -10,9 +10,10 @@
 
 <table class="list chart" cellspacing="0">
 <tr>
-{def $total = $awstats.data.total}
+{def $total = $awstats.data.total
+     $multiplier = data_multiplier( $awstats.data.time, 'Bandwidth', $total.Bandwidth, 50 )}
 {foreach $awstats.data.time as $hour => $time_info}
-    <td class="cdata images"><img src={'vp.png'|ezimage} alt="{$time_info.Pages} {'pages'|i18n( 'awstats/stats' )}" height="{$time_info.Pages|mul( 500 )|div( $total.Hits )|floor}" width="6" /><img src={'vh.png'|ezimage} alt="{$time_info.Hits} {'hits'|i18n( 'awstats/stats' )}" height="{$time_info.Hits|mul( 500 )|div( $total.Hits )|floor}" width="6" /><img src={'vk.png'|ezimage} alt="{$time_info.Bandwidth|si( 'byte' )}" height="{$time_info.Bandwidth|mul( 500 )|div( $total.Bandwidth )|floor}" width="6" /></td>
+    <td class="cdata images"><img src={'vp.png'|ezimage} alt="{$time_info.Pages} {'pages'|i18n( 'awstats/stats' )}" height="{$time_info.Pages|mul( $multiplier )|div( $total.Hits )|floor}" width="6" /><img src={'vh.png'|ezimage} alt="{$time_info.Hits} {'hits'|i18n( 'awstats/stats' )}" height="{$time_info.Hits|mul( $multiplier )|div( $total.Hits )|floor}" width="6" /><img src={'vk.png'|ezimage} alt="{$time_info.Bandwidth|si( 'byte' )}" height="{$time_info.Bandwidth|mul( $multiplier )|div( $total.Bandwidth )|floor}" width="6" /></td>
 {/foreach}
 </tr>
 <tr>

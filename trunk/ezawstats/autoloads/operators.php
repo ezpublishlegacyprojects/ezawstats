@@ -8,7 +8,7 @@ class eZAWStatsOperators
 
     function operatorList()
     {
-        return array( 'is_week_end', 'date_eq' );
+        return array( 'is_week_end', 'date_eq', 'data_multiplier' );
     }
 
     function namedParameterPerOperator()
@@ -20,13 +20,39 @@ class eZAWStatsOperators
     {
         return array( 'is_week_end' => array(),
                       'date_eq' => array( 'date' => array( 'type' => 'object',
-                                                           'required' => true ) ) );
+                                                           'required' => true ) ),
+                      'data_multiplier' => array( 'data_array' => array( 'type' => 'array',
+                                                                         'required' => true ),
+                                                  'key' => array( 'type' => 'string',
+                                                                  'required' => true ),
+                                                  'total' => array( 'type' => 'number',
+                                                                    'required' => true ),
+                                                  'max_value' => array( 'type' => 'integer',
+                                                                        'required' => true ) ) );
+    }
+
+    private static function dataMultiplier( $dataArray, $key, $total, $maxValue )
+    {
+        $max = 0;
+        foreach( $dataArray as $element )
+        {
+            if ( isset( $element[$key] ) )
+            {
+                $max = max( $element[$key], $max );
+            }
+        }
+        return $total * $maxValue / $max;
     }
 
     function modify( $tpl, $operatorName, $operatorParameters, &$rootNamespace, &$currentNamespace, &$operatorValue, &$namedParameters )
     {
         switch ( $operatorName )
         {
+            case 'data_multiplier':
+            {
+                $operatorValue = self::dataMultiplier( $namedParameters['data_array'], $namedParameters['key'],
+                                                       $namedParameters['total'], $namedParameters['max_value'] );
+            } break;
             case 'is_week_end':
             {
                 $timestamp = $operatorValue->attribute( 'timestamp' );
