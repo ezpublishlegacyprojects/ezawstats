@@ -10,4 +10,9 @@ $ViewList['stats'] = array( 'script' => 'stats.php',
                             'params' => array( 'Year', 'Month', 'Site' ),
                             'ui_context' => 'view' );
 
+$ViewList['robots'] = array( 'script' => 'robots.php',
+                             'default_navigation_part' => 'awstats',
+                             'params' => array( 'Year', 'Month', 'Site' ),
+                             'ui_context' => 'view' );
+
 ?>

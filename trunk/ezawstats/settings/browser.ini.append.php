@@ -81,7 +81,7 @@ BrowserList[qts]=Quicktime
 BrowserList[sonique]=Sonique (media player)
 BrowserList[uplayer]=Ultra Player (media player)
 BrowserList[xaudio]=Some XAudio Engine based MPEG player (media player)
-BrowserList[xine]=Xine
+BrowserList[xine]=Xine, a free multimedia player (media player)
 BrowserList[xmms]=XMMS (media player)
 BrowserList[abilon]=Abilon (RSS Reader)
 BrowserList[aggrevator]=Aggrevator (RSS Reader)
@@ -284,7 +284,7 @@ RobotList[fouineur]=Fouineur
 RobotList[francoroute]=Robot Francoroute
 RobotList[freecrawl]=Freecrawl
 RobotList[funnelweb]=FunnelWeb
-RobotList[gama]=gammaSpider
+RobotList[gama]=gammaSpider, FocusedCrawler
 RobotList[gazz]=gazz
 RobotList[gcreep]=GCreep
 RobotList[getbot]=GetBot
@@ -310,7 +310,7 @@ RobotList[infoseeksidewinder]=Infoseek Sidewinder
 RobotList[infospider]=InfoSpiders
 RobotList[inspectorwww]=Inspector Web
 RobotList[intelliagent]=IntelliAgent
-RobotList[irobot]=I
+RobotList[irobot]=I, Robot
 RobotList[iron33]=Iron33
 RobotList[israelisearch]=Israeli-search
 RobotList[javabee]=JavaBee
@@ -555,7 +555,7 @@ RobotList[fast\senterprise\scrawler]=<a href="http://www.fast.no/" title="FAST E
 RobotList[fast\senterprise\scrawler.*scrawleradmin\.t\-info@telekom\.de]=<a href="http://www.telekom.de/" title="FAST Enterprise Crawler * crawleradmin.t-info@telekom.de home page [new window]" target="_blank">FAST Enterprise Crawler * crawleradmin.t-info@telekom.de</a>
 RobotList[matrix\ss\.p\.a\.\s\-\sfast\senterprise\scrawler]=<a href="http://tin.virgilio.it/" title="Matrix S.p.A. - FAST Enterprise Crawler home page [new window]" target="_blank">Matrix S.p.A. - FAST Enterprise Crawler</a>
 RobotList[fast\senterprise\scrawler.*t\-info_bi_cluster\scrawleradmin\.t\-info@telekom\.de]=<a href="http://www.telekom.de/" title="FAST Enterprise Crawler * T-Info_BI_cluster crawleradmin.t-info@telekom.de home page [new window]" target="_blank">FAST Enterprise Crawler * T-Info_BI_cluster crawleradmin.t-info@telekom.de</a>
-RobotList[favorg]=<a href="http://www.pcmag.com/article2/0
+RobotList[favorg]=<a href="http://www.pcmag.com/article2/0,4149,108438,00.asp" title="FavOrg home page [new window]" target="_blank">FavOrg</a>
 RobotList[favorites\ssweeper]=<a href="http://www.manitools.com/favsweep/" title="Favorites_Sweeper home page [new window]" target="_blank">Favorites Sweeper</a>
 RobotList[feedburner]=Feedburner
 RobotList[feedfetcher\-google]=<a href="http://www.google.com/feedfetcher.html" title="Bot home page [new window]" target="_blank">Feedfetcher-Google</a>
@@ -654,7 +654,7 @@ RobotList[noxtrumbot]=<a href="http://www.noxtrum.com/" title="Bot home page [ne
 RobotList[npbot]=<a href="http://www.nameprotect.com/botinfo.html" title="NPBot home page [new window]" target="_blank">NPBot</a>
 RobotList[nutchcvs]=<a href="http://lucene.apache.org/nutch/bot.html" title="NutchCVS home page [new window]" target="_blank">NutchCVS</a>
 RobotList[nutchosu\-vlib]=<a href="http://lucene.apache.org/nutch/bot.html" title="NutchOSU-VLIB home page [new window]" target="_blank">NutchOSU-VLIB</a>
-RobotList[nutch]=<a href="http://lucene.apache.org/nutch/" title="Bot home page. Used by many
+RobotList[nutch]=<a href="http://lucene.apache.org/nutch/" title="Bot home page. Used by many, including Looksmart. [new window]" target="_blank">Nutch</a>
 RobotList[ocelli]=<a href="http://www.globalspec.com/Ocelli/" title="Ocelli home page [new window]" target="_blank">Ocelli</a>
 RobotList[octora\sbeta\sbot]=<a href="http://www.octora.com/" title="Bot home page [new window]" target="_blank">Octora Beta Bot</a>
 RobotList[omniexplorer\_bot]=<a href="http://www.omni-explorer.com/" title="Bot home page. [new window]" target="_blank">OmniExplorer Bot</a>
@@ -759,7 +759,7 @@ RobotList[webvulncrawl]=WebVulnCrawl
 RobotList[wells\ssearch]=<a href="http://www.psychedelix.com/cgi-bin/csv2html.pl?data=allagents.csv&amp;template=detail.html&amp;match=bid_t_z_1484b " title="Wells Search home page [new window]" target="_blank">Wells Search</a>
 RobotList[wonderer]=Web Wombat Redback Spider
 RobotList[wume\scrawler]=<a href="http://wume.cse.lehigh.edu/~xiq204/crawler/ " title="wume crawler home page [new window]" target="_blank">wume crawler</a>
-RobotList[wwweasel]=
+RobotList[wwweasel]=<a href="http://wwweasel.de/" title="Website_Monitoring_Bot home page [new window]" target="_blank">WWWeasel</a>
 RobotList[xenu\'s\slink\ssleuth]=<a href="http://home.snafu.de/tilman/xenulink.html" title="Xenu Link Sleuth home page [new window]" target="_blank">Xenu Link Sleuth</a>
 RobotList[xenu\slink\ssleuth]=<a href="http://home.snafu.de/tilman/xenulink.html" title="Xenu Link Sleuth home page [new window]" target="_blank">Xenu Link Sleuth</a>
 RobotList[xirq]=<a href="http://www.xirq.com/" title="xirq home page [new window]" target="_blank">xirq</a>

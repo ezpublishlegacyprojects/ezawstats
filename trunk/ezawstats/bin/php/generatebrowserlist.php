@@ -54,15 +54,15 @@ function parsePerlHash( $lineArray, $hashName )
             // end of hash
             break;
         }
-        $line = trim( preg_replace( '/#.*/', '', $line ), " \t\n\r\0\x0b," );
+        $line = trim( preg_replace( '/#.*/', '', $line ), " \t\n\r\0\x0b'," );
         if ( $line == '' )
         {
             // $line was only a comment
             continue;
         }
-        list( $key, $value ) = explode( ',', $line );
+        list( $key, $value ) = split( "',[, ]*'", $line );
         $key = trim( str_replace( array( '[', ']' ), array( '<<', '>>' ), $key ), "'" );
-        $resultList[$key] = str_replace( "\\", "", trim( $value, " \t\n\r\0\x0b'" ) );
+        $resultList[$key] = str_replace( "\\", "", trim( $value, " \t\n\r\0\x0b'," ) );
     }
     return $resultList;
 }

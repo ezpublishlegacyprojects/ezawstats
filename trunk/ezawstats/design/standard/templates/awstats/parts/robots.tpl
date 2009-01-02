@@ -1,6 +1,10 @@
 <div class="context-block">
 <div class="box-header"><div class="box-tc"><div class="box-ml"><div class="box-mr"><div class="box-tl"><div class="box-tr">
+{if $full_list}
+<h1 class="context-title">{'Robots/Spiders visitors'|i18n( 'awstats/stats' )}</h1>
+{else}
 <h1 class="context-title">{'Robots/Spiders visitors (Top 10)'|i18n( 'awstats/stats' )}</h1>
+{/if}
 <div class="header-mainline"></div>
 </div></div></div></div></div></div>
 
@@ -10,7 +14,7 @@
 <table class="list" cellspacing="0">
 <tbody>
 <tr class="cdata">
-    <th>{'Name'|i18n( 'awstats/stats' )} (<a href={concat( 'awtstats/robots/', $awstats.year, '/', $awstats.month, '/', $awstats.site )|ezurl()}>{'Full list'|i18n( 'awtstats/stats' )}</a>)</th>
+    <th>{'Name'|i18n( 'awstats/stats' )}{if $full_list|not()} (<a href={concat( 'awstats/robots/', $awstats.year, '/', $awstats.month, '/', $awstats.site )|ezurl()}>{'Full list'|i18n( 'awtstats/stats' )}</a>){/if}</th>
     <th>{'Hits + robots.txt hits'|i18n( 'awstats/stats' )}</th>
     <th>{'Bandwidth'|i18n( 'awstats/stats' )}</th>
     <th>{'Last visit'|i18n( 'awstats/stats' )}</th>

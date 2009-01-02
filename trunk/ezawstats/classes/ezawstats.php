@@ -85,7 +85,7 @@ class eZAWStats
         $sectionNodes = $xpath->query( '//section[@id!="header"]' );
         foreach( $sectionNodes as $section )
         {
-            $this->parseSection( $section, $xpath );
+            $this->_parseSection( $section, $xpath );
         }
         $this->Data['general']['VisitsByVisitor'] = round( $this->Data['general']['TotalVisits'] / $this->Data['general']['TotalUnique'], 2 );
         $this->Data['general']['PagesByVisit'] = round( $this->Data['total']['Pages'] / $this->Data['general']['TotalVisits'], 2 );
@@ -94,10 +94,27 @@ class eZAWStats
         return true;
     }
 
-    private function parseSection( $section, $xpath )
+    public function parseRobots()
+    {
+        $dom = new DomDocument();
+        $dom->strictErrorChecking = false;
+        $dom->recover = true;
+        $file = $this->dataFilePath();
+        $result = @$dom->load( $file );
+        if ( $result === false )
+        {
+            eZDebug::writeError( $file . ' seems to not be a valid XML file', __CLASS__ );
+            return false;
+        }
+        $xpath = new DomXPath( $dom );
+        $sectionRobots = $xpath->query( '//section[@id="robot"]' );
+        $this->_parseSectionRobot( $sectionRobots->item( 0 ), $xpath, false );
+    }
+
+    private function _parseSection( $section, $xpath )
     {
         $sectionID = $section->getAttribute( 'id' );
-        $methodName = 'parseSection' . ucfirst( $sectionID );
+        $methodName = '_parseSection' . ucfirst( $sectionID );
         if ( method_exists( $this, $methodName ) )
         {
             call_user_func( array( $this, $methodName ), $section, $xpath );
@@ -108,7 +125,7 @@ class eZAWStats
         }
     }
 
-    private function parseSectionGeneral( $section, $xpath )
+    private function _parseSectionGeneral( $section, $xpath )
     {
         $this->Data['general'] = array();
         $data =& $this->Data['general'];
@@ -147,7 +164,7 @@ class eZAWStats
         }
     }
 
-    private function parseSectionTime( $section, $xpath )
+    private function _parseSectionTime( $section, $xpath )
     {
         $this->Data['time'] = array();
         $data =& $this->Data['time'];
@@ -175,7 +192,7 @@ class eZAWStats
         $this->Data['total'] = $total;
     }
 
-    private function parseSectionDay( $section, $xpath )
+    private function _parseSectionDay( $section, $xpath )
     {
         $this->Data['day'] = array();
         $data =& $this->Data['day'];
@@ -200,7 +217,7 @@ class eZAWStats
         }
     }
 
-    private function parseSectionRobot( $section, $xpath, $number = 10 )
+    private function _parseSectionRobot( $section, $xpath, $number = 10 )
     {
         $ini = eZINI::instance( 'browser.ini' );
         $robotList = $ini->variable( 'RobotSettings', 'RobotList' );

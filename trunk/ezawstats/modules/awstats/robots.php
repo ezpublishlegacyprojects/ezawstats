@@ -19,18 +19,10 @@ if ( isset( $Params['Site'] ) )
     {
         eZDebug::writeWarning( 'Site in parameters is not in available site list', 'ezawstats' );
     }
-    elseif ( $http->hasPostVariable( 'Site' ) )
-    {
-        $Site = $http->postVariable( 'Site' );
-    }
     else
     {
         $Site = $Params['Site'];
     }
-}
-elseif ( $http->hasPostVariable( 'Site' ) )
-{
-    $Site = $http->postVariable( 'Site' );
 }
 
 $Year = (int) date( 'Y' );
@@ -45,14 +37,9 @@ if ( isset( $Params['Month'] ) )
     $Month = sprintf( '%02d', $Month );
 }
 
-if ( $http->hasPostVariable( 'Date' ) )
-{
-    list( $Year, $Month ) = explode( '-', $http->postVariable( 'Date' ) );
-}
-
 $awstats = new eZAWStats( $dataDir, $Site, $Year, $Month );
 eZDebug::accumulatorStart( 'parsing', 'AWStats', 'Parsing AWStats XML' );
-$result = $awstats->parse();
+$result = $awstats->parseRobots();
 eZDebug::accumulatorStop( 'parsing' );
 if ( $result === false )
 {
@@ -67,12 +54,11 @@ eZDebug::accumulatorStop( 'datelist' );
 require_once 'kernel/common/template.php';
 $tpl = templateInit();
 $tpl->setVariable( 'awstats_sites', $siteList );
-$tpl->setVariable( 'current_site', $Site );
 $tpl->setVariable( 'awstats_dates', $dateList );
 $tpl->setVariable( 'awstats', $awstats );
 $tpl->setVariable( 'date', new eZDate() );
 
-$Result['content'] = $tpl->fetch( 'design:awstats/stats.tpl' );
+$Result['content'] = $tpl->fetch( 'design:awstats/robots.tpl' );
 $Result['left_menu']  = 'design:parts/awstats/menu.tpl';
 $Result['pagelayout'] = 'design:pagelayout_awstats.tpl';
 $Result['path'] = array( array( 'text' => 'AWStats',
