@@ -164,6 +164,43 @@ class eZAWStats
         }
     }
 
+    private function _parseSectionFiletypes( $section, $xpath )
+    {
+        $mimeINI = eZINI::instance( 'mime.ini' );
+        $mimeArray = $mimeINI->variable( 'MimeSettings', 'MimeName' );
+        $mimeFamilyArray = $mimeINI->variable( 'MimeSettings', 'MimeFamily' );
+        $mimeIconArray = $mimeINI->variable( 'MimeSettings', 'MimeIcon' );
+        $this->Data['filetypes'] = array();
+        $data =& $this->Data['filetypes'];
+        $valueNodes = $xpath->query( 'table/tr', $section );
+        $total = array( 'Hits' => 0, 'Bandwidth' => 0 );
+        foreach( $valueNodes as $node )
+        {
+            $type = trim( $node->childNodes->item( 0 )->nodeValue );
+            $data[$type] = array();
+            $family = isset( $mimeFamilyArray[$type] ) ? $mimeFamilyArray[$type] : false;
+            $data[$type]['Icon'] = isset( $mimeIconArray[$type] ) ? 'mime/' . $mimeIconArray[$type] . '.png' : false;
+            $data[$type]['Name'] = ( $family && isset( $mimeArray[$family] ) ) ? $mimeArray[$family] : '';
+            $data[$type]['Type'] = $type;
+            $data[$type]['Hits'] = $node->childNodes->item( 1 )->nodeValue;
+            $data[$type]['Bandwidth'] = $node->childNodes->item( 2 )->nodeValue;
+            $total['Hits'] += $data[$type]['Hits'];
+            $total['Bandwidth'] += $data[$type]['Bandwidth'];
+        }
+        foreach( $data as $type => $element )
+        {
+            $data[$type]['HitsPercent'] = round( $data[$type]['Hits'] * 100 / $total['Hits'], 1 );
+            $data[$type]['BandwidthPercent'] = round( $data[$type]['Bandwidth'] * 100 / $total['Bandwidth'], 1 );
+        }
+        usort( $data, array( __CLASS__, 'filetypeCmp' ) );
+    }
+
+    static function filetypeCmp( $type1, $type2 )
+    {
+        $res = $type2['Hits'] - $type1['Hits'];
+        return $res;
+    }
+
     private function _parseSectionTime( $section, $xpath )
     {
         $this->Data['time'] = array();
