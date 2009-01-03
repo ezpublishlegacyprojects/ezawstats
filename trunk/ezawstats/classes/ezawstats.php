@@ -164,6 +164,34 @@ class eZAWStats
         }
     }
 
+    private function _parseSectionSession( $section, $xpath )
+    {
+        $this->Data['session'] = array();
+        $data =& $this->Data['session'];
+        $valueNodes = $xpath->query( 'table/tr', $section );
+        $total = 0;
+        foreach( $valueNodes as $node )
+        {
+            $name = trim( $node->childNodes->item( 0 )->nodeValue );
+            $data[$name]['Name'] = $name;
+            $data[$name]['Visits'] = $node->childNodes->item( 1 )->nodeValue;
+            $total += $data[$name]['Visits'];
+        }
+        $data['Unknown']['Name'] = 'Unknown';
+        $data['Unknown']['Visits'] = $this->Data['general']['TotalVisits'] - $total;
+        foreach( $data as $key => $value )
+        {
+            $data[$key]['Percent'] = round( $data[$key]['Visits'] * 100 / $total, 1 );
+        }
+        usort( $data, array( __CLASS__, 'sessionCmp' ) );
+    }
+
+    private static function sessionCmp( $s1, $s2 )
+    {
+        $res = $s2['Visits'] - $s1['Visits'];
+        return $res;
+    }
+
     private function _parseSectionFiletypes( $section, $xpath )
     {
         $mimeINI = eZINI::instance( 'mime.ini' );
@@ -195,7 +223,7 @@ class eZAWStats
         usort( $data, array( __CLASS__, 'filetypeCmp' ) );
     }
 
-    static function filetypeCmp( $type1, $type2 )
+    private static function filetypeCmp( $type1, $type2 )
     {
         $res = $type2['Hits'] - $type1['Hits'];
         return $res;
