@@ -146,7 +146,9 @@ class eZAWStats
         $methodName = '_parseSection' . ucfirst( $sectionID );
         if ( method_exists( $this, $methodName ) )
         {
+            eZDebug::accumulatorStart( $methodName, 'AWStats', 'Call to ' . $methodName );
             call_user_func( array( $this, $methodName ), $section, $xpath );
+            eZDebug::accumulatorStop( $methodName );
         }
         else
         {

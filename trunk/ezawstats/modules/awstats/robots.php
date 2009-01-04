@@ -52,6 +52,7 @@ $dateList = $awstats->dateList();
 eZDebug::accumulatorStop( 'datelist' );
 
 require_once 'kernel/common/template.php';
+require_once 'kernel/common/i18n.php';
 $tpl = templateInit();
 $tpl->setVariable( 'awstats_sites', $siteList );
 $tpl->setVariable( 'awstats_dates', $dateList );
@@ -62,7 +63,11 @@ $Result['content'] = $tpl->fetch( 'design:awstats/robots.tpl' );
 $Result['left_menu']  = 'design:parts/awstats/menu.tpl';
 $Result['pagelayout'] = 'design:pagelayout_awstats.tpl';
 $Result['path'] = array( array( 'text' => 'AWStats',
-                                'url'  => false ),
+                                'url'  => 'awstats/stats' ),
                          array( 'text' => $Site,
+                                'url'  => 'awstats/stats/' . $awstats->attribute( 'year' )
+                                                           . '/' . $awstats->attribute( 'month' )
+                                                           . '/' . $Site ),
+                         array( 'text' => ezi18n( 'awstats/stats', 'Robots' ),
                                 'url'  => false ) );
 ?>

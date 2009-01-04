@@ -76,7 +76,9 @@ $Result['content'] = $tpl->fetch( 'design:awstats/stats.tpl' );
 $Result['left_menu']  = 'design:parts/awstats/menu.tpl';
 $Result['pagelayout'] = 'design:pagelayout_awstats.tpl';
 $Result['path'] = array( array( 'text' => 'AWStats',
-                                'url'  => false ),
+                                'url'  => 'awstats/stats' ),
                          array( 'text' => $Site,
-                                'url'  => false ) );
+                                'url'  => 'awstats/stats/' . $awstats->attribute( 'year' )
+                                                           . '/' . $awstats->attribute( 'month' )
+                                                           . '/' . $Site ) );
 ?>
