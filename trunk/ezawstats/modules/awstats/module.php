@@ -15,4 +15,9 @@ $ViewList['robots'] = array( 'script' => 'robots.php',
                              'params' => array( 'Year', 'Month', 'Site' ),
                              'ui_context' => 'view' );
 
+$ViewList['404'] = array( 'script' => '404.php',
+                          'default_navigation_part' => 'awstats',
+                          'params' => array( 'Year', 'Month', 'Site' ),
+                          'ui_context' => 'view' );
+
 ?>

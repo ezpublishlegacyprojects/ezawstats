@@ -111,6 +111,35 @@ class eZAWStats
         $this->_parseSectionRobot( $sectionRobots->item( 0 ), $xpath, false );
     }
 
+    public function parse404()
+    {
+        $dom = new DomDocument();
+        $dom->strictErrorChecking = false;
+        $dom->recover = true;
+        $file = $this->dataFilePath();
+        $result = @$dom->load( $file );
+        if ( $result === false )
+        {
+            eZDebug::writeError( $file . ' seems to not be a valid XML file', __CLASS__ );
+            return false;
+        }
+        $xpath = new DomXPath( $dom );
+        $valueNodes = $xpath->query( '//section[@id="sider_404"]/table/tr' );
+        $this->Data['errors404'] = array();
+        $data =& $this->Data['errors404'];
+        $index = 0;
+        foreach( $valueNodes as $node )
+        {
+            $data[$index] = array();
+            $data[$index]['URL'] = trim( $node->childNodes->item( 0 )->nodeValue );
+            $data[$index]['Hits'] = trim( $node->childNodes->item( 1 )->nodeValue );
+            $referer = trim( $node->childNodes->item( 2 )->nodeValue );
+            $data[$index]['Referer'] = $referer == '-' ? false : $referer;
+            $index++;
+        }
+        usort( $data, array( __CLASS__, 'errorCmp' ) );
+    }
+    
     private function _parseSection( $section, $xpath )
     {
         $sectionID = $section->getAttribute( 'id' );
@@ -162,6 +191,36 @@ class eZAWStats
                 $data[$name] = trim( $node->childNodes->item( 1 )->nodeValue );
             }
         }
+    }
+
+    private function _parseSectionErrors( $section, $xpath )
+    {
+        $this->Data['errors'] = array();
+        $data =& $this->Data['errors'];
+        $httpINI = eZINI::instance( 'httpcodes.ini' );
+        $codesArray = $httpINI->variable( 'HTTPSettings', 'HTTPCodes' );
+        $valueNodes = $xpath->query( 'table/tr', $section );
+        $totalHits = 0;
+        foreach( $valueNodes as $node )
+        {
+            $code = trim( $node->childNodes->item( 0 )->nodeValue );
+            $data["$code"] = array();
+            $data["$code"]['Code'] = "$code";
+            $data["$code"]['Name'] = isset( $codesArray["$code"] ) ? $codesArray["$code"] : '';
+            $data["$code"]['Hits'] = trim( $node->childNodes->item( 1 )->nodeValue );
+            $data["$code"]['Bandwidth'] = trim( $node->childNodes->item( 2 )->nodeValue );
+            $totalHits += $data["$code"]['Hits'];
+        }
+        foreach( $data as $code => $value )
+        {
+            $data["$code"]['HitsPercent'] = round( $value['Hits'] * 100 / $totalHits, 1 );
+        }
+        usort( $data, array( __CLASS__, 'errorCmp' ) );
+    }
+
+    private static function errorCmp( $e1, $e2 )
+    {
+        return $e2['Hits'] - $e1['Hits'];
     }
 
     private function _parseSectionSession( $section, $xpath )
