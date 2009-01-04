@@ -6,6 +6,7 @@
 {include uri='design:page_head.tpl'}
 
 {def $hide_right_menu = true()
+     $admin_right_menu = ''
      $admin_left_width = ezpreference( 'admin_left_menu_width' )}
 
 {* cache-block keys=array($navigation_part.identifier, $current_user.role_id_list|implode( ',' ), $current_user.limited_assignment_value_list|implode( ',' ), $ui_context, $hide_right_menu, $admin_left_width) *}

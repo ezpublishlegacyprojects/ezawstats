@@ -17,8 +17,8 @@
 {foreach $awstats.data.session as $session sequence array( 'bglight', 'bgdark' ) as $css}
 <tr class="{$css}">
     <td>{$session.Name|wash()}</td>
-    <td class="tight cdata">{$session.Visits}</td>
-    <td class="tight cdata">{$session.Percent}%</td>
+    <td class="cdata">{$session.Visits}</td>
+    <td class="cdata">{$session.Percent}%</td>
 </tr>
 {/foreach}
 </tbody>
